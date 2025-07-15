@@ -1,53 +1,72 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Simon Game</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet" />
 </head>
+
 <body>
 
-<!-- Dark Theme -->
+    <!-- ========== Theme Toggle ========== -->
     <div class="top-controls">
-            <button id="toggle-theme">🌓 Toggle Theme</button>
+        <button id="toggle-theme">🌓 Toggle Theme</button>
     </div>
 
+    <!-- ========== Game Title & Info ========== -->
     <h1>Simon Says Game</h1>
-    <h2>Press any key to start the game</h2>
+    <h2>Press 'Start Over' to start the game</h2>
+
+    <!-- ========== Scoreboard ========== -->
     <div class="scores">
-    <p> Score: <span id="score">0</span> | High Score: <span id="highscore">0</span></p>
-    <button id="restart"> Start Over</button>
-</div>
-</div>
+        <p>Score: <span id="score">0</span> | High Score: <span id="highscore">0</span></p>
+        <button id="restart">Start Over</button>
+    </div>
+
+    <!-- ========== Game Buttons ========== -->
     <div class="btn-container">
         <div class="line-one">
-            <div class="btn red" type="button" id="red">1</div>
-            <div class="btn yellow" type="button" id="yellow">2</div>
+            <div class="btn red" id="red"></div>
+            <div class="btn yellow" id="yellow"></div>
         </div>
         <div class="line-two">
-            <div class="btn green" type="button" id="green">3</div>
-            <div class="btn purple" type="button" id="purple">4</div>
-        </div> 
+            <div class="btn green" id="green"></div>
+            <div class="btn purple" id="purple"></div>
+        </div>
     </div>
-    <div id="popup-overlay">
-    <div id="popup">
-        <span id="close-popup">❌</span>
-        <h2>📋 How to Play Simon Game</h2>
-        <ul>
-            <li>Press any key to start the game</li>
-            <li>Watch the button flash sequence</li>
-            <li>Repeat the exact same sequence by clicking the buttons</li>
-            <li>Each level adds one more button to the sequence</li>
-            <li>Game ends if you press the wrong button</li>
-        </ul>
-        <p><b>Good luck and have fun!</b> 🎮</p>
-    </div>
-</div>
-<div id="game-over-msg" class="hidden">Game Over!</div>
 
+    <!-- ========== Instructions Popup ========== -->
+    <div id="popup-overlay">
+        <div id="popup">
+            <span id="close-popup">❌</span>
+            <h2>📋 How to Play Simon Game</h2>
+            <ul>
+                <li>Press any key to start the game</li>
+                <li>Watch the button flash sequence</li>
+                <li>Repeat the exact same sequence by clicking the buttons</li>
+                <li>Each level adds one more button to the sequence</li>
+                <li>Game ends if you press the wrong button</li>
+            </ul>
+            <p><b>Good luck and have fun!</b> 🎮</p>
+        </div>
+    </div>
+
+    <!-- ========== Game Over Popup ========== -->
+    <div id="game-over-popup" class="hidden">
+        <div class="popup-inner">
+            <h2>Game Over</h2>
+            <p>Your score: <span id="final-score">0</span></p>
+            <button id="play-again">Play Again</button>
+        </div>
+    </div>
+
+    <!-- ========== JavaScript ========== -->
     <script src="app.js"></script>
 </body>
 </html>
-
+<!-- ========== Sound Effects ========== -->
+<!-- You can use free ones from: https://sfxr.me/ or freesound.org -->

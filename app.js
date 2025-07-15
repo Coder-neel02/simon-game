@@ -1,8 +1,9 @@
+// ===================
+// Initialization
+// ===================
 let gameSeq = [];
 let userSeq = [];
-
 let btns = ["yellow", "red", "purple", "green"];
-
 let started = false;
 let level = 0;
 let highScore = 0;
@@ -12,136 +13,176 @@ let scoreBoard = document.querySelector("#score");
 let highScoreBoard = document.querySelector("#highscore");
 let restartBtn = document.querySelector("#restart");
 
-// Sound effects
+// ===================
+// Sound Effects
+// ===================
 function playSound(color) {
     let audio = new Audio(`sounds/${color}.mp3`);
     audio.play();
 }
 
-document.addEventListener("keypress", function () {
-    if (!started) {
-        started = true;
-        levelUp();
-    }
-});
-
-restartBtn.addEventListener("click", function () {
-    reset();
-    started = true;
-    levelUp();
-});
-
+// ===================
+// Button Flash
+// ===================
 function btnFlash(btn) {
     btn.classList.add("flash");
-    setTimeout(function () {
-        btn.classList.remove("flash");
-    }, 250);
+    setTimeout(() => btn.classList.remove("flash"), 250);
 }
 
+// ===================
+// Button Click Handler
+// ===================
+function btnPress() {
+    let btn = this;
+    let userColor = btn.getAttribute("id");
+    userSeq.push(userColor);
+    btnFlash(btn);
+    playSound(userColor);
+    checkAns(userSeq.length - 1);
+}
+
+// ===================
+// Level Up
+// ===================
 function levelUp() {
     userSeq = [];
     level++;
     h2.innerText = `Level ${level}`;
     scoreBoard.innerText = level;
 
-    let randIdx = Math.floor(Math.random() * 4);
-    let randColor = btns[randIdx];
-    let randBtn = document.querySelector(`.${randColor}`);
+    let randColor = btns[Math.floor(Math.random() * 4)];
     gameSeq.push(randColor);
 
+    let randBtn = document.querySelector(`.${randColor}`);
     btnFlash(randBtn);
     playSound(randColor);
 }
 
+// ===================
+// Check Answer
+// ===================
 function checkAns(idx) {
     if (userSeq[idx] === gameSeq[idx]) {
         if (userSeq.length === gameSeq.length) {
             setTimeout(levelUp, 1000);
         }
     } else {
+        // Game Over
         document.body.classList.add("game-over");
         playSound("wrong");
-        showGameOver();
+        setTimeout(() => document.body.classList.remove("game-over"), 200);
 
         h2.innerHTML = `Game Over! Your score was <b>${level}</b>. Press any key or click restart.`;
+        restartBtn.innerText = " Restart ";
 
         if (level > highScore) {
-                        players[currentEmail].highScore = level;
-                        localStorage.setItem("players", JSON.stringify(players));
-                        highScoreBoard.innerText = level;
-        }
+                highScore = level;
+                highScoreBoard.innerText = highScore;
+                localStorage.setItem("highScore", highScore); // ✅ Global save
+    }
 
-
-
+        showGameOver();
         reset();
     }
 }
 
-const storedHigh = localStorage.getItem("highScore");
-if (storedHigh) {
-    highScore = parseInt(storedHigh);
-    highScoreBoard.innerText = highScore;
-}
-
-function btnPress() {
-    let btn = this;
-    btnFlash(btn);
-    let userColor = btn.getAttribute("id");
-    userSeq.push(userColor);
-    playSound(userColor);
-    checkAns(userSeq.length - 1);
-}
-
-let allBtns = document.querySelectorAll(".btn");
-for (let btn of allBtns) {
-    btn.addEventListener("click", btnPress);
-}
-
+// ===================
+// Reset Game
+// ===================
 function reset() {
     started = false;
     gameSeq = [];
     userSeq = [];
     level = 0;
     scoreBoard.innerText = 0;
+    //localStorage.removeItem("highScore");
+    h2.innerText = "Press 'start over' to start the game";
+    restartBtn.innerText = "Start Over";
+}
+
+// ===================
+// Game Over Animation
+// ===================
+function showGameOver() {
+    document.getElementById("final-score").innerText = level;
+    document.getElementById("game-over-popup").classList.remove("hidden");
+}
+document.getElementById("play-again").addEventListener("click", () => {
+    document.getElementById("game-over-popup").classList.add("hidden");
+    reset();
+    started = true;
+    levelUp();
+});
+
+
+// ===================
+// Event Listeners
+// ===================
+
+// Start on keypress
+document.addEventListener("keypress", () => {
+    if (!started) {
+        started = true;
+        levelUp();
+    }
+});
+
+// Start on restart click
+restartBtn.addEventListener("click", () => {
+    reset();
+    started = true;
+    levelUp();
+});
+
+// Button clicks
+let allBtns = document.querySelectorAll(".btn");
+allBtns.forEach(btn => btn.addEventListener("click", btnPress));
+
+// ===================
+// Load & Save High Score
+// ===================
+const storedHigh = localStorage.getItem("highScore");
+if (storedHigh) {
+    highScore = parseInt(storedHigh);
+    highScoreBoard.innerText = highScore;
 }
 
 
-// ------------------------------------------------------------------------------------------------
-// Show popup only once
+// ===================
+// One-Time Popup
+// ===================
 window.addEventListener("load", () => {
     if (!localStorage.getItem("popupShown")) {
         document.getElementById("popup-overlay").style.display = "flex";
         localStorage.setItem("popupShown", "true");
     }
-});
 
-// Close popup
-document.getElementById("close-popup").addEventListener("click", () => {
-    document.getElementById("popup-overlay").style.display = "none";
-});
-// togel the theme
-// Theme Toggle
-const themeToggle = document.getElementById("toggle-theme");
-
-themeToggle.addEventListener("click", () => {
-    document.body.classList.toggle("light-mode");
-
-    // Save theme to localStorage
-    localStorage.setItem("theme", document.body.classList.contains("light-mode") ? "light" : "dark");
-});
-
-// Load saved theme
-window.addEventListener("load", () => {
+    // Load theme on window load
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme === "light") {
         document.body.classList.add("light-mode");
     }
 });
 
-function showGameOver() {
-  const msg = document.getElementById("game-over-msg");
-  msg.classList.remove("hidden");
-  setTimeout(() => msg.classList.add("hidden"), 2000);
-}
+document.getElementById("close-popup").addEventListener("click", () => {
+    document.getElementById("popup-overlay").style.display = "none";
+});
+
+// ===================
+// Theme Toggle
+// ===================
+const themeToggle = document.getElementById("toggle-theme");
+themeToggle.addEventListener("click", () => {
+    document.body.classList.toggle("light-mode");
+    const theme = document.body.classList.contains("light-mode") ? "light" : "dark";
+    localStorage.setItem("theme", theme);
+});
+
+document.getElementById("play-again").addEventListener("click", () => {
+    document.getElementById("game-over-msg").classList.add("hidden");
+    reset();
+    started = true;
+    levelUp();
+});
 
 

@@ -1,4 +1,6 @@
-/* General Reset */
+/* ====================
+   General Reset & Base
+==================== */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -19,6 +21,9 @@ body {
     transition: background-color 0.3s ease;
 }
 
+/* ====================
+         Typography
+==================== */
 h1 {
     font-size: 3rem;
     margin-bottom: 0.5rem;
@@ -31,7 +36,9 @@ h2 {
     text-shadow: 1px 1px 3px #00000088;
 }
 
-/* Buttons */
+/* ====================
+         Buttons
+==================== */
 .btn-container {
     display: flex;
     flex-direction: column;
@@ -62,44 +69,20 @@ h2 {
     user-select: none;
 }
 
-/* Individual Colors with Neon Glow */
-.red {
-    background-color: #d95980;
-    box-shadow: 0 0 15px #d95980aa;
-}
-.red:hover {
-    box-shadow: 0 0 25px #d95980ff;
-    transform: scale(1.05);
-}
+/* === Button Colors === */
+.red { background-color: #d95980; box-shadow: 0 0 15px #d95980aa; }
+.red:hover { box-shadow: 0 0 25px #d95980ff; transform: scale(1.05); }
 
-.yellow {
-    background-color: #f99b45;
-    box-shadow: 0 0 15px #f99b45aa;
-}
-.yellow:hover {
-    box-shadow: 0 0 25px #f99b45ff;
-    transform: scale(1.05);
-}
+.yellow { background-color: #f99b45; box-shadow: 0 0 15px #f99b45aa; }
+.yellow:hover { box-shadow: 0 0 25px #f99b45ff; transform: scale(1.05); }
 
-.green {
-    background-color: #63aac0;
-    box-shadow: 0 0 15px #63aac0aa;
-}
-.green:hover {
-    box-shadow: 0 0 25px #63aac0ff;
-    transform: scale(1.05);
-}
+.green { background-color: #63aac0; box-shadow: 0 0 15px #63aac0aa; }
+.green:hover { box-shadow: 0 0 25px #63aac0ff; transform: scale(1.05); }
 
-.purple {
-    background-color: #819ff9;
-    box-shadow: 0 0 15px #819ff9aa;
-}
-.purple:hover {
-    box-shadow: 0 0 25px #819ff9ff;
-    transform: scale(1.05);
-}
+.purple { background-color: #819ff9; box-shadow: 0 0 15px #819ff9aa; }
+.purple:hover { box-shadow: 0 0 25px #819ff9ff; transform: scale(1.05); }
 
-/* Flash animation */
+/* === Flash & Game Over === */
 .flash {
     background-color: #fff !important;
     box-shadow: 0 0 30px #fff;
@@ -107,34 +90,25 @@ h2 {
     transform: scale(1.1);
 }
 
-/* Game Over Red Flash */
 body.game-over {
     background-color: #ff4b5c !important;
     transition: background-color 0.2s ease;
 }
 
-/* Responsive Design */
-@media screen and (max-width: 768px) {
-    .btn {
-        height: 100px;
-        width: 100px;
-        font-size: 1rem;
-    }
-
-    h1 {
-        font-size: 2rem;
-    }
-
-    h2 {
-        font-size: 1rem;
-    }
-}
+/* ====================
+        Scoreboard
+==================== */
 .scores {
     margin-bottom: 2rem;
     font-size: 1.2rem;
     color: #fff;
 }
 
+#score, #highscore {
+    font-weight: bold;
+}
+
+/* Restart Button */
 #restart {
     margin-top: 1rem;
     padding: 0.75rem 1.5rem;
@@ -146,27 +120,25 @@ body.game-over {
     color: white;
     cursor: pointer;
     box-shadow: 0 4px 15px rgba(0, 188, 212, 0.4);
-    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
 }
-
 #restart:hover {
     background-color: #00acc1;
     transform: scale(1.05);
     box-shadow: 0 6px 20px rgba(0, 172, 193, 0.6);
 }
-
 #restart:active {
     transform: scale(0.97);
     box-shadow: 0 2px 10px rgba(0, 172, 193, 0.3);
 }
 
-/* ------------------------------------------------------------------------------------------ */
+/* ====================
+        Popups
+==================== */
 #popup-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
+    top: 0; left: 0;
+    height: 100%; width: 100%;
     background: rgba(0, 0, 0, 0.75);
     z-index: 1000;
     display: flex;
@@ -183,7 +155,6 @@ body.game-over {
     max-width: 500px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
     position: relative;
-    font-family: 'Segoe UI', sans-serif;
     animation: pop-in 0.3s ease;
 }
 
@@ -197,12 +168,10 @@ body.game-over {
     text-align: left;
     margin-bottom: 1rem;
 }
-
 #popup li {
     margin-bottom: 0.5rem;
     font-size: 1rem;
 }
-
 #popup p {
     text-align: center;
     font-weight: bold;
@@ -223,16 +192,72 @@ body.game-over {
 }
 
 @keyframes pop-in {
-    from {
-        transform: scale(0.8);
-        opacity: 0;
-    }
-    to {
-        transform: scale(1);
-        opacity: 1;
-    }
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
 }
-/* dark theme */
+
+/* ====================
+    Game Over Modal
+==================== */
+#game-over-popup {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(6px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+#game-over-popup.hidden {
+    display: none;
+}
+
+.popup-inner {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 2rem 3rem;
+    border-radius: 14px;
+    text-align: center;
+    box-shadow: 0 0 25px rgba(255, 71, 87, 0.6);
+    animation: pop-in 0.3s ease;
+    max-width: 90%;
+    color: #000;
+}
+
+.popup-inner h2 {
+    font-size: 2rem;
+    color: #ff1744;
+    margin-bottom: 1rem;
+}
+
+.popup-inner p {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+}
+
+.popup-inner button,
+#play-again {
+    padding: 0.7rem 1.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    background: #ff1744;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.popup-inner button:hover,
+#play-again:hover {
+    background: #d50000;
+    transform: scale(1.05);
+}
+
+/* ====================
+      Theme Toggle
+==================== */
 .top-controls {
     position: absolute;
     top: 10px;
@@ -251,28 +276,150 @@ body.game-over {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
+/* ====================
+      Light Mode
+==================== */
 body.light-mode {
     background: linear-gradient(135deg, #e0f7fa, #ffffff);
     color: #000;
 }
-body.light-mode h1, body.light-mode h2 {
+
+body.light-mode h1,
+body.light-mode h2 {
     text-shadow: none;
     color: #000;
 }
+
 body.light-mode .btn {
     border: 5px solid black;
 }
-body.light-mode #popup {
-    background: rgba(255, 255, 255, 0.95);
+
+body.light-mode .scores,
+body.light-mode #score,
+body.light-mode #highscore {
     color: #000;
 }
-  
 
-
-#game-over-msg {
-  position: absolute; top:50%; transform: translateY(-50%);
-  background: rgba(255,0,0,0.8); color:#fff; padding:1rem 2rem;
-  border-radius:8px; font-size:1.5rem; z-index:200;
-  transition: opacity 0.3s;
+body.light-mode #popup,
+body.light-mode #game-over-msg {
+    background: rgba(255, 255, 255, 0.95);
+    color: #000;
+    border-color: #d32f2f;
+    box-shadow: 0 0 20px #d32f2f99;
 }
-.hidden { opacity:0; pointer-events:none; }
+
+body.light-mode #restart {
+    color: #000;
+    background: #ffffffaa;
+}
+body.light-mode #restart:hover {
+    background: #ffffffcc;
+}
+body.light-mode #restart:active {
+    background: #ffffff99;
+}
+
+body.light-mode #game-over-popup {
+    background: rgba(255, 255, 255, 0.8);
+}
+
+body.light-mode #game-over-popup .popup-inner {
+    background: #fff;
+    color: #000;
+}
+
+/* ====================
+     Responsive Styles
+==================== */
+/* Add media queries here if needed */
+/* ====================
+   Responsive Styles
+==================== */
+
+/* Small tablets and large phones */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.2rem;
+    }
+
+    h2 {
+        font-size: 1.2rem;
+    }
+
+    .btn {
+        width: 100px;
+        height: 100px;
+        font-size: 1rem;
+    }
+
+    #restart {
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+    }
+
+    .popup-inner {
+        padding: 1.5rem 1.5rem;
+    }
+
+    .popup-inner h2 {
+        font-size: 1.5rem;
+    }
+
+    .popup-inner p {
+        font-size: 1rem;
+    }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+    body {
+        padding-top: 1rem;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    h2 {
+        font-size: 1rem;
+    }
+
+    .btn {
+        width: 80px;
+        height: 80px;
+        font-size: 0.9rem;
+    }
+
+    .btn-container {
+        gap: 0.8rem;
+    }
+
+    .line-one,
+    .line-two {
+        gap: 0.8rem;
+    }
+
+    .popup-inner {
+        padding: 1rem;
+    }
+
+    .popup-inner h2 {
+        font-size: 1.2rem;
+    }
+
+    .popup-inner p {
+        font-size: 0.9rem;
+    }
+
+    #restart,
+    .popup-inner button,
+    #play-again {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+    }
+
+    #toggle-theme {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+    }
+}
