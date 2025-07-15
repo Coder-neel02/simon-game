@@ -239,20 +239,19 @@ body.game-over {
 
 .popup-inner button,
 #play-again {
-    padding: 0.7rem 1.5rem;
-    font-size: 1rem;
-    font-weight: bold;
-    border: none;
-    border-radius: 8px;
-    background: #ff1744;
-    color: #fff;
-    cursor: pointer;
-    transition: all 0.2s ease;
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  background: #ff1744;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
-.popup-inner button:hover,
 #play-again:hover {
-    background: #d50000;
-    transform: scale(1.05);
+  background: #d50000;
+  transform: scale(1.05);
 }
 
 /* ====================
@@ -305,7 +304,8 @@ body.light-mode #game-over-msg {
     background: rgba(255, 255, 255, 0.95);
     color: #000;
     border-color: #d32f2f;
-    box-shadow: 0 0 20px #d32f2f99;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+
 }
 
 body.light-mode #restart {
@@ -327,7 +327,14 @@ body.light-mode #game-over-popup .popup-inner {
     background: #fff;
     color: #000;
 }
+@keyframes fade-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
 
+.popup-inner {
+  animation: fade-in 0.3s ease-in-out;
+}
 /* ====================
      Responsive Styles
 ==================== */
