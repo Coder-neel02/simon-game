@@ -279,8 +279,9 @@ body.game-over {
       Light Mode
 ==================== */
 body.light-mode {
-    background: linear-gradient(135deg, #e0f7fa, #ffffff);
+   background: linear-gradient(135deg, #fae1dd, #fff1eb, #ace0f9, #f6f8fc);
     color: #000;
+
 }
 
 body.light-mode h1,
